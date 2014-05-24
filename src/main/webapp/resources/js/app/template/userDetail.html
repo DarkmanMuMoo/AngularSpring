@@ -1,0 +1,38 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-2 col-md-2">
+			<img src="{{user.picture}}"
+			alt="" class="img-rounded img-responsive" />
+		</div>
+		<div class="col-sm-4 col-md-4">
+			<blockquote>
+				<p>{{user.name}}</p> <small><cite title="Source Title">{{user.location}} <i class="glyphicon glyphicon-map-marker"></i></cite></small>
+			</blockquote>
+			<p> <i class="glyphicon glyphicon-envelope"></i> {{user.email}}
+				<br
+				/> <i class="glyphicon glyphicon-globe"></i> www.bootsnipp.com
+				<br /> <i class="glyphicon glyphicon-gift"></i> January 30, 1974</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<a class="btn btn-default" href="#/">back</a> 
+			<button type="button" class="btn btn-warning" ng-click="toggleEdit(showEdit)" >{{EditText}}</button> 
+		</div>
+
+		<form name="userForm" ng-show="showEdit"  ng-submit="submitForm(userForm.$valid)" novalidate>
+			<div class="form-group"  ng-class=" {'has-error':userForm.name.$invalid }">
+				<label for="Name">Name</label>
+				<input type="text" class="form-control" placeholder="Enter name" name="name" ng-model="updateuser.name" required>
+			</div>
+			<div class="form-group" ng-class=" {'has-error':userForm.email.$invalid}">
+				<label for="Email">Email</label>
+				<input type="email" class="form-control"  placeholder="Email" name="email" ng-model="updateuser.email" required >
+			</div>
+			<div class="form-group" ng-class=" {'has-error':userForm.location.$invalid}">
+				<label for="Location">Location</label>
+				<input type="text" class="form-control"  placeholder="location" name="location" ng-model="updateuser.location"  required>
+			</div>		
+			<button type="submit" class="btn btn-default">Submit</button>
+		</form>
+	</div>
