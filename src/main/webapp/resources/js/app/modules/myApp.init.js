@@ -1,10 +1,21 @@
 
 define(['modules/myApp'], function (myApp) {
-	myApp.run(['$rootScope', '$location', function ($rootScope, $location) {
-	    $rootScope.$on('$routeChangeStart', function (event) {
-
-	    console.log('routeChangeStart');
-	    });
+	myApp.config(['$provide', function ($provide) {
+	
+		 $provide.decorator("$exceptionHandler", function($delegate,$injector){
+		        return function(exception, cause){
+		        	 var location =$injector.get("$location");
+		             var message = exception.message;
+		             console.log(message);
+		             if(message == "can not connect to Server"){
+		            	
+		            	 location.path('/error');
+		             }
+		          
+		            $delegate(exception, cause);
+		        };
+		    });
+		
 	}]);
 });
 

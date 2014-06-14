@@ -7,6 +7,10 @@ define(['modules/myApp','service/userService'], function (myApp) {
 			user.get({page:pageNo}).$promise.then(function(response) {
 				$scope.users = response.results;
 				$scope.totalItems=response.totalAmount;
+			},function(){
+				
+				throw new Error("can not connect to Server");
+				
 			});
 		}
 
