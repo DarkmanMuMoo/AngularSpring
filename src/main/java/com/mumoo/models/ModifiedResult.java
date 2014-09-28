@@ -1,11 +1,11 @@
 package com.mumoo.models;
 
-public class modifiedResult {
+public class ModifiedResult {
 
 	private boolean result;
 	private Object modifyObject;
 	
-	public modifiedResult(boolean result, Object modifyObject) {
+	public ModifiedResult(boolean result, Object modifyObject) {
 		super();
 		this.result = result;
 		this.modifyObject = modifyObject;

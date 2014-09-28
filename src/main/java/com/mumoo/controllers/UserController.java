@@ -2,6 +2,7 @@ package com.mumoo.controllers;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -18,7 +19,7 @@ import com.mumoo.exceptions.BadParamException;
 import com.mumoo.exceptions.ErrorException;
 import com.mumoo.models.PagingResultSet;
 import com.mumoo.models.UserPojo;
-import com.mumoo.models.modifiedResult;
+import com.mumoo.models.ModifiedResult;
 import com.mumoo.utility.PagingUtil;
 
 @Controller
@@ -28,6 +29,8 @@ public class UserController {
 	@Autowired
 	public UserDao userDao;
 
+	private final static Logger log = Logger.getLogger(UserController.class);
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody
 	PagingResultSet getAll(
@@ -48,10 +51,10 @@ public class UserController {
 
 			return resultSet;
 		} catch (DataAccessException e) {
-			e.printStackTrace();
+			log.error("SqlError", e);      
 			throw new ErrorException("SqlError");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Somthing Wrong", e);
 			throw new ErrorException("Somthing Wrong");
 		}
 
@@ -70,7 +73,7 @@ public class UserController {
 	
 	@RequestMapping(method = RequestMethod.PUT, produces = "application/json")
 	public @ResponseBody
-	modifiedResult UpdateUser(@RequestBody UserPojo user) throws BadParamException, ErrorException {
+	ModifiedResult updateUser(@RequestBody UserPojo user) throws BadParamException, ErrorException {
 		boolean result = false;
 		
 		try {
@@ -80,7 +83,7 @@ public class UserController {
 			throw new ErrorException("Unable to Update");
 		}
 		
-		return  new modifiedResult(result, user);
+		return  new ModifiedResult(result, user);
 			
 	}
 }
